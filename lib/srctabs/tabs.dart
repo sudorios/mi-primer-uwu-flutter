@@ -4,6 +4,7 @@ import 'package:flutteroperacionrest/sreentabs/contact.dart';
 import 'package:flutteroperacionrest/sreentabs/video.dart';
 
 class MyTabs extends StatefulWidget {
+  static const String routeName = '/tabs';
   @override
   _MyTabsState createState() => _MyTabsState();
 }
@@ -22,7 +23,10 @@ class _MyTabsState extends State<MyTabs> {
           ),
           backgroundColor: Colors.blue,
           shadowColor: Colors.grey,
-          bottom: TabBar(
+          bottom: const TabBar(
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white60,
+            indicatorColor: Colors.yellow,
             tabs: <Widget>[
               Tab(icon: Icon(Icons.home)),
               Tab(icon: Icon(Icons.ondemand_video)),
