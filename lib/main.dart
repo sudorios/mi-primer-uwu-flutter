@@ -1,22 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutteroperacionrest/home.dart';
-import 'package:flutteroperacionrest/screensdraw/battery.dart';
-import 'package:flutteroperacionrest/screensdraw/settings.dart';
-import 'package:flutteroperacionrest/srclistainfinita/infinita.dart';
-import 'package:flutteroperacionrest/srctabs/tabs.dart';
-import 'package:flutteroperacionrest/stateless/mycard.dart';
+import 'package:flutteroperacionrest/screens/auth_page.dart';
 
-void main(List<String> args) {
-  runApp(
-    MaterialApp(
-      home: Home(),
-      routes: <String, WidgetBuilder>{
-        Settings.routeName: (BuildContext context) => Settings(),
-        Battery.routeName: (BuildContext context) => Battery(),
-        MyTabs.routeName: (BuildContext context) => MyTabs(),
-        MyCard.routeName: (BuildContext context) => MyCard(),
-        Infinita.routeName: (BuildContext context) => Infinita(),
-      },
-    ),
-  );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(debugShowCheckedModeBanner: false, home: AuthPage());
+  }
 }
