@@ -4,7 +4,7 @@ import 'package:flutteroperacionrest/bloc/auth_bloc.dart';
 import 'package:flutteroperacionrest/bloc/auth_event.dart';
 import 'package:flutteroperacionrest/bloc/auth_state.dart';
 import 'package:flutteroperacionrest/firebase_auth_repo.dart';
-import 'package:flutteroperacionrest/screens/home_page.dart';
+import 'package:flutteroperacionrest/screens/home.dart';
 
 class AuthPage extends StatelessWidget {
   AuthPage({super.key});
@@ -46,7 +46,7 @@ class AuthPage extends StatelessWidget {
                           // Redirige al HomePage cuando el login es exitoso
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (_) => HomePage()),
+                            MaterialPageRoute(builder: (_) => Home()),
                           );
                         } else if (state is AuthFailure) {
                           // Muestra el error en un SnackBar

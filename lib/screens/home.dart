@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutteroperacionrest/screens/registrar_operacion_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,7 +14,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Pagina Principal",
+          "Página Principal",
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -28,32 +29,46 @@ class _HomeState extends State<Home> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const [
-            DrawerHeader(
+          children: [
+            const DrawerHeader(
               decoration: BoxDecoration(color: Colors.lightBlue),
               child: Text(
-                'Menu de opciones',
+                'Menú de opciones',
                 style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
-            ListTile(leading: Icon(Icons.home), title: Text('Inicio')),
-            ListTile(
+            const ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Inicio'),
+            ),
+            const ListTile(
               leading: Icon(Icons.settings),
               title: Text('Configuración'),
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.contact_mail),
               title: Text('Contacto'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.factory, color: Colors.deepOrange),
+              title: const Text('Operación'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RegistrarOperacionPage(),
+                  ),
+                );
+              },
             ),
           ],
         ),
       ),
-      body: const SizedBox.expand(
-        child: Center(
-          child: Text(
-            "Bienvenidos a la pagina principal",
-            style: TextStyle(fontSize: 20),
-          ),
+      body: const Center(
+        child: Text(
+          "Bienvenidos a la página principal",
+          style: TextStyle(fontSize: 20),
         ),
       ),
     );
