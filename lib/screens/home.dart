@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutteroperacionrest/screens/registrar_operacion_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -28,7 +29,7 @@ class _HomeState extends State<Home> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const [
+          children: [
             DrawerHeader(
               decoration: BoxDecoration(color: Colors.lightBlue),
               child: Text(
@@ -44,6 +45,17 @@ class _HomeState extends State<Home> {
             ListTile(
               leading: Icon(Icons.contact_mail),
               title: Text('Contacto'),
+            ),
+            ListTile(
+              leading: Icon(Icons.factory, color: Colors.deepOrange),
+              title: const Text('Operaciones'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => RegistrarOperacionPage()),
+                );
+              },
             ),
           ],
         ),
