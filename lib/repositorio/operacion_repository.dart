@@ -27,4 +27,13 @@ class OperacionRepository {
         .snapshots()
         .map((qs) => qs.docs.map((doc) => Operacion.fromDoc(doc)).toList());
   }
+
+  Future<Operacion> getById(String docId) async {
+    final snap = await _db.collection('operaciones').doc(docId).get();
+    if (!snap.exists) {
+      throw Exception('No existe la operacion');
+    }
+    return Operacion.fromDoc(snap);
+  }
+
 }

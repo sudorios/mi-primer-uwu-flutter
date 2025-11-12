@@ -1,9 +1,11 @@
 import 'package:equatable/equatable.dart';
+import '../model/operacion.dart';
 
 abstract class OperacionListState extends Equatable {
   const OperacionListState();
+
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class OperacionListLoading extends OperacionListState {
@@ -11,17 +13,17 @@ class OperacionListLoading extends OperacionListState {
 }
 
 class OperacionListLoaded extends OperacionListState {
-  final List operaciones;
-  const OperacionListLoaded({required this.operaciones});
+  final List<Operacion> operaciones;
+  const OperacionListLoaded(this.operaciones);
 
   @override
-  List<Object> get props => [operaciones];
+  List<Object?> get props => [operaciones];
 }
 
 class OperacionListError extends OperacionListState {
-  final String message;
-  const OperacionListError({required this.message});
+  final String error;
+  const OperacionListError(this.error);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [error];
 }

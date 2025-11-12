@@ -16,9 +16,8 @@ class OperacionListBloc extends Bloc<OperacionListEvent, OperacionListState>{
     emit(const OperacionListLoading());
     await emit.forEach<List<Operacion>>(
       operacionRepository.streamOperaciones(),
-      onData: (operaciones) => OperacionListLoaded(operaciones: operaciones),
-      onError: (error, stackTrace) =>
-          OperacionListError(message: error.toString()),
+      onData: (operaciones) => OperacionListLoaded(operaciones),
+      onError: (error, stackTrace) => OperacionListError(error.toString()),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutteroperacionrest/bloc/operacion_bloc.dart';
 import 'package:flutteroperacionrest/bloc/operacion_event.dart';
 import 'package:flutteroperacionrest/bloc/operacion_state.dart';
 import 'package:flutteroperacionrest/repositorio/operacion_repository.dart';
+import 'package:flutteroperacionrest/screens/operacion_list_page.dart';
 
 class RegistrarOperacionPage extends StatelessWidget{
   
@@ -26,6 +27,12 @@ class RegistrarOperacionPage extends StatelessWidget{
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Operacion registrada exitosamente'))
               );
+              idCtrl.clear();
+              descripcionCtrl.clear();
+              cantidadCtrl.clear();
+              montoCtrl.clear();
+              responsableCtrl.clear();
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const OperacionListPage()));
               }else if(state is OperacionFailure){
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Error: ${state.error}'))

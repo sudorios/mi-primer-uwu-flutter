@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutteroperacionrest/screens/operacion_list_page.dart';
 import 'package:flutteroperacionrest/screens/registrar_operacion_page.dart';
 
 class Home extends StatefulWidget {
@@ -57,7 +58,7 @@ class _HomeState extends State<Home> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => RegistrarOperacionPage(),
+                    builder: (context) => OperacionListPage(),
                   ),
                 );
               },
