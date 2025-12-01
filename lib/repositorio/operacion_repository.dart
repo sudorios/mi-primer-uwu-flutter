@@ -36,4 +36,26 @@ class OperacionRepository {
     return Operacion.fromDoc(snap);
   }
 
+ Future<void> actualizarOperacion({
+    required String docId,
+    required String idOperacion,
+    required String descripcion,
+    required int cantidad,
+    required double monto,
+    required String responsable,
+  }) async {
+    await _firestore.collection('operaciones').doc(docId).update({ 
+      'idOperacion': idOperacion, 
+      'descripcion': descripcion,
+      'cantidad': cantidad,
+      'monto': monto,
+      'responsable': responsable,
+      'fecha': FieldValue.serverTimestamp(), 
+    });
+  }
+
+  Future<void> eliminarOperacion(String docId) async {
+    await _firestore.collection('operaciones').doc(docId).delete();
+  } 
+  
 }
