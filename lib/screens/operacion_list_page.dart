@@ -5,6 +5,7 @@ import 'package:flutteroperacionrest/bloc/operacion_list_event.dart';
 import 'package:flutteroperacionrest/bloc/operacion_list_state.dart';
 import 'package:flutteroperacionrest/model/operacion.dart';
 import 'package:flutteroperacionrest/repositorio/operacion_repository.dart';
+import 'package:flutteroperacionrest/screens/operacion_delete_page.dart';
 import 'package:flutteroperacionrest/screens/operacion_detalle_page.dart';
 import 'package:flutteroperacionrest/screens/operacion_edit_page.dart';
 import 'package:flutteroperacionrest/screens/registrar_operacion_page.dart';
@@ -99,7 +100,7 @@ class _OperacionTitle extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => OperacionDetallePage(docId: op.docId),
+                    builder: (_) => OperacionDeletePage(operacion: op),
                   ),
                 );
               },

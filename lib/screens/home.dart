@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutteroperacionrest/screens/buscar_usuario_page.dart';
+import 'package:flutteroperacionrest/screens/consumo_page.dart';
 import 'package:flutteroperacionrest/screens/operacion_list_page.dart';
 import 'package:flutteroperacionrest/screens/registrar_operacion_page.dart';
 
@@ -59,6 +61,32 @@ class _HomeState extends State<Home> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => OperacionListPage(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.add_circle, color: Colors.green),
+              title: const Text('Listado Usuario'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ConsumoPage(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person_add, color: Colors.blue),
+              title: const Text('Buscar Usuario por ID'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BuscarUsuarioPage(),
                   ),
                 );
               },
