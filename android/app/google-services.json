@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "131944045486",
+    "project_id": "bs-base-2325",
+    "storage_bucket": "bs-base-2325.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131944045486:android:3f081f8f5a88df46e1863f",
+        "android_client_info": {
+          "package_name": "com.example.appbase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsKKhpdTcNIoJyIBrW37X15SIeoiUOrF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131944045486:android:ff84e916632d4bdbe1863f",
+        "android_client_info": {
+          "package_name": "com.example.appmovilfirebaseriostercerexamen"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsKKhpdTcNIoJyIBrW37X15SIeoiUOrF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131944045486:android:adb3295d81b79fabe1863f",
+        "android_client_info": {
+          "package_name": "com.example.proyectobase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsKKhpdTcNIoJyIBrW37X15SIeoiUOrF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
