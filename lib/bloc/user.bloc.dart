@@ -10,6 +10,7 @@ import 'package:proyectobase/bloc/user.state.dart';
 class UsuarioBloc extends Bloc<UsuarioEvent, UsuarioState> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance; 
+
   UsuarioBloc() : super(UsuarioInitialState()) {
     
     on<BuscarUsuarioEvent>((event, emit) async {
@@ -46,6 +47,7 @@ class UsuarioBloc extends Bloc<UsuarioEvent, UsuarioState> {
 
     on<GuardarUsuarioEvent>((event, emit) async {
       final String password = event.usuario['password'].toString();
+      
       if (password.length < 6) {
         emit(UsuarioErrorState("La contraseña debe tener al menos 6 caracteres."));
         return;
@@ -58,6 +60,7 @@ class UsuarioBloc extends Bloc<UsuarioEvent, UsuarioState> {
         final String dni = event.usuario['dni'];
         final String nombre = event.usuario['nombre'];
         final String apellido = event.usuario['apellido'];
+        final DateTime fechaUI = event.usuario['fecha_registro']; 
 
         final QuerySnapshot result = await _firestore
             .collection('usuarios')
@@ -81,7 +84,7 @@ class UsuarioBloc extends Bloc<UsuarioEvent, UsuarioState> {
           'dni': dni,
           'email': email,
           'password': password, 
-          'fecha_registro': FieldValue.serverTimestamp(),
+          'fecha_registro': Timestamp.fromDate(fechaUI), 
         });
 
         emit(UsuarioGuardadoState());

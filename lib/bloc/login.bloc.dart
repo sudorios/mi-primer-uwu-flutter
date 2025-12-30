@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:proyectobase/bloc/login.event.dart';
-import 'package:proyectobase/bloc/login.state.dart'; // Importamos Firestore
-
+import 'package:proyectobase/bloc/login.state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -20,6 +19,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     on<LoginSubmitted>((event, emit) async {
       if (state.isBlocked) return;
+      
       emit(state.copyWith(status: LoginStatus.submitting));    
       try {
         final QuerySnapshot result = await _firestore
@@ -29,14 +29,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             .get();
 
         if (result.docs.isNotEmpty) {
-          _intentosFallidos = 0; // Reseteamos contador
+          _intentosFallidos = 0; 
           emit(state.copyWith(status: LoginStatus.success));
         } else {
           _intentosFallidos++;          
+          
           if (_intentosFallidos >= 2) {
             emit(state.copyWith(
               status: LoginStatus.blocked, 
-              message: "Acceso Bloqueado. Ingrese código 111."
+              message: "Acceso Bloqueado. Ingrese su Año de Registro."
             ));
           } else {
             emit(state.copyWith(
@@ -57,17 +58,42 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(state.copyWith(unlockCode: event.code));
     });
 
-    on<UnlockSubmitted>((event, emit) {
-      if (state.unlockCode == "111") {
-        _intentosFallidos = 0;
-        emit(state.copyWith(
-          status: LoginStatus.initial, 
-          email: '', 
-          password: '', 
-          unlockCode: ''
-        ));
-      } else {
-         emit(state.copyWith(status: LoginStatus.blocked, message: "Código incorrecto"));
+    on<UnlockSubmitted>((event, emit) async {
+      
+      try {
+        final QuerySnapshot snapshot = await _firestore
+            .collection('usuarios')
+            .where('email', isEqualTo: state.email)
+            .get();
+
+        if (snapshot.docs.isEmpty) {
+          emit(state.copyWith(status: LoginStatus.blocked, message: "Error: Usuario no encontrado."));
+          return;
+        }
+        final data = snapshot.docs.first.data() as Map<String, dynamic>;      
+        if (data['fecha_registro'] == null) {
+           emit(state.copyWith(status: LoginStatus.blocked, message: "Este usuario no tiene fecha registrada."));
+           return;
+        }
+        final Timestamp timestamp = data['fecha_registro']; 
+        final String anioGuardado = timestamp.toDate().year.toString();
+        if (state.unlockCode == anioGuardado) {
+          _intentosFallidos = 0;
+          emit(state.copyWith(
+            status: LoginStatus.initial, 
+            email: '', 
+            password: '', 
+            unlockCode: '',
+            message: '' 
+          ));
+        } else {
+           emit(state.copyWith(
+             status: LoginStatus.blocked, 
+             message: "Año incorrecto. Intente nuevamente." 
+           ));
+        }
+      } catch (e) {
+        emit(state.copyWith(status: LoginStatus.blocked, message: "Error de validación: $e"));
       }
     });
   }

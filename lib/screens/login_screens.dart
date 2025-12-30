@@ -17,9 +17,8 @@ class LoginScreen extends StatelessWidget {
           listener: (context, state) {
             if (state.isSuccess) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("✅ Login Success"), backgroundColor: Colors.green),
+                const SnackBar(content: Text("✅ Login Exitoso"), backgroundColor: Colors.green),
               );
-              // Navegación al Home
               Future.microtask(() {
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (_) => const Home()),
@@ -32,7 +31,7 @@ class LoginScreen extends StatelessWidget {
               );
             } else if (state.isBlocked) {
                ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("⛔ SISTEMA BLOQUEADO"), backgroundColor: Colors.red),
+                SnackBar(content: Text("⛔ ${state.message}"), backgroundColor: Colors.red),
               );
             }
           },
@@ -151,13 +150,17 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            const Text("Ingresa el código 111 para desbloquear"),
+            const Text(
+              "Ingresa tu Año de Registro para desbloquear",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 20),
             TextField(
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
-                labelText: 'Código de Recuperación',
-                prefixIcon: Icon(Icons.security, color: Colors.red),
+                labelText: 'Año de Registro (Ej: 2024)',
+                prefixIcon: Icon(Icons.calendar_today, color: Colors.red),
                 border: OutlineInputBorder(),
               ),
               onChanged: (value) => context.read<LoginBloc>().add(
@@ -177,7 +180,7 @@ class LoginScreen extends StatelessWidget {
                 context.read<LoginBloc>().add(UnlockSubmitted());
               },
               child: const Text(
-                'DESBLOQUEAR',
+                'VALIDAR AÑO',
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),

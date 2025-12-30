@@ -19,6 +19,8 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  DateTime _fechaRegistro = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -72,8 +74,8 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                         onPressed: () {
                           if (_idController.text.isNotEmpty) {
                             context.read<UsuarioBloc>().add(
-                              BuscarUsuarioEvent(_idController.text),
-                            );
+                                  BuscarUsuarioEvent(_idController.text),
+                                );
                           }
                         },
                       ),
@@ -103,6 +105,49 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                     decoration: const InputDecoration(labelText: 'Password'),
                     obscureText: true,
                   ),
+                  const SizedBox(height: 20),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Fecha: ${_fechaRegistro.day}/${_fechaRegistro.month}/${_fechaRegistro.year}",
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                            Text(
+                              "Clave de desbloqueo futura: ${_fechaRegistro.year}",
+                              style: const TextStyle(
+                                  color: Colors.blue, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.calendar_today, color: Colors.blue),
+                          onPressed: () async {
+                            final DateTime? picked = await showDatePicker(
+                              context: context,
+                              initialDate: _fechaRegistro,
+                              firstDate: DateTime(1900),
+                              lastDate: DateTime(2100),
+                            );
+                            if (picked != null && picked != _fechaRegistro) {
+                              setState(() {
+                                _fechaRegistro = picked;
+                              });
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  ),
 
                   const SizedBox(height: 30),
 
@@ -116,10 +161,12 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
                               'dni': _dniController.text,
                               'email': _emailController.text,
                               'password': _passwordController.text,
+                              // 3. ENVIAMOS LA FECHA SELECCIONADA
+                              'fecha_registro': _fechaRegistro,
                             };
                             context.read<UsuarioBloc>().add(
-                              GuardarUsuarioEvent(mapUser),
-                            );
+                                  GuardarUsuarioEvent(mapUser),
+                                );
                           },
                     child: const Text("GUARDAR EN FIREBASE"),
                   ),
@@ -139,5 +186,8 @@ class _UsuarioScreenState extends State<UsuarioScreen> {
     _dniController.clear();
     _emailController.clear();
     _passwordController.clear();
+    setState(() {
+      _fechaRegistro = DateTime.now();
+    });
   }
 }

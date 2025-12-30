@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-// Eliminamos firebase_auth porque acordamos hacerlo "sin authorization"
-import 'package:proyectobase/screens/login_screens.dart';
+import 'package:firebase_auth/firebase_auth.dart'; 
+import 'package:proyectobase/screens/login_screens.dart'; 
 import 'package:proyectobase/screens/usuario.screens.dart';
 
 class Home extends StatefulWidget {
@@ -11,6 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,16 +66,11 @@ class _HomeState extends State<Home> {
               title: Text('Configuración'),
             ),
 
-            // --- BOTÓN SALIR MODIFICADO ---
             ListTile(
               leading: const Icon(Icons.exit_to_app, color: Colors.red), 
               title: const Text('Salir'),
               onTap: () {
-                // 1. Cerramos el menú lateral
                 Navigator.pop(context);
-                
-                // 2. Ya no llamamos a FirebaseAuth.instance.signOut();
-                // Simplemente navegamos de vuelta al Login borrando el historial.
                 
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -88,20 +84,7 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.flutter_dash, size: 100, color: Colors.lightBlue),
-            SizedBox(height: 20),
-            Text(
-              "Bienvenidos al Examen",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            Text("Selecciona una opción del menú"),
-          ],
-        ),
-      ),
+      body: const Center(),
     );
   }
 }
